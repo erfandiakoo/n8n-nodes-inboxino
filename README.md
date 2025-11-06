@@ -1,247 +1,311 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# n8n-nodes-inboxino
 
-# n8n-nodes-starter
+![n8n.io - Workflow Automation](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png)
 
-This starter repository helps you build custom integrations for [n8n](https://n8n.io). It includes example nodes, credentials, the node linter, and all the tooling you need to get started.
+This is an n8n community node that lets you use [Inboxino](https://inboxino.com) messaging services in your n8n workflows.
 
-## Quick Start
+Inboxino is a unified messaging platform that allows you to send messages across multiple channels including Telegram, WhatsApp, Instagram, and SMS from a single API.
 
-> [!TIP]
-> **New to building n8n nodes?** The fastest way to get started is with `npm create @n8n/node`. This command scaffolds a complete node package for you using the [@n8n/node-cli](https://www.npmjs.com/package/@n8n/node-cli).
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-**To create a new node package from scratch:**
+## Table of Contents
+
+- [Installation](#installation)
+- [Prerequisites](#prerequisites)
+- [Credentials](#credentials)
+- [Compatibility](#compatibility)
+- [Usage](#usage)
+- [Operations](#operations)
+- [Examples](#examples)
+- [Resources](#resources)
+- [License](#license)
+
+## Installation
+
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+
+### Community Nodes (Recommended)
+
+1. Go to **Settings** → **Community Nodes** in your n8n instance
+2. Click **Install**
+3. Enter `n8n-nodes-inboxino` in the npm package name field
+4. Click **Install**
+5. Restart your n8n instance
+
+### Manual Installation
+
+To install manually, navigate to your n8n installation directory and run:
 
 ```bash
-npm create @n8n/node
+npm install n8n-nodes-inboxino
 ```
 
-**Already using this starter? Start developing with:**
-
-```bash
-npm run dev
-```
-
-This starts n8n with your nodes loaded and hot reload enabled.
-
-## What's Included
-
-This starter repository includes two example nodes to learn from:
-
-- **[Example Node](nodes/Example/)** - A simple starter node that shows the basic structure with a custom `execute` method
-- **[GitHub Issues Node](nodes/GithubIssues/)** - A complete, production-ready example built using the **declarative style**:
-  - **Low-code approach** - Define operations declaratively without writing request logic
-  - Multiple resources (Issues, Comments)
-  - Multiple operations (Get, Get All, Create)
-  - Two authentication methods (OAuth2 and Personal Access Token)
-  - List search functionality for dynamic dropdowns
-  - Proper error handling and typing
-  - Ideal for HTTP API-based integrations
-
-> [!TIP]
-> The declarative/low-code style (used in GitHub Issues) is the recommended approach for building nodes that interact with HTTP APIs. It significantly reduces boilerplate code and handles requests automatically.
-
-Browse these examples to understand both approaches, then modify them or create your own.
-
-## Finding Inspiration
-
-Looking for more examples? Check out these resources:
-
-- **[npm Community Nodes](https://www.npmjs.com/search?q=keywords:n8n-community-node-package)** - Browse thousands of community-built nodes on npm using the `n8n-community-node-package` tag
-- **[n8n Built-in Nodes](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes)** - Study the source code of n8n's official nodes for production-ready patterns and best practices
-- **[n8n Credentials](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/credentials)** - See how authentication is implemented for various services
-
-These are excellent resources to understand how to structure your nodes, handle different API patterns, and implement advanced features.
+Then restart your n8n instance.
 
 ## Prerequisites
 
-Before you begin, install the following on your development machine:
+Before using this node, you need:
 
-### Required
+1. An [Inboxino](https://inboxino.com) account
+2. An Inboxino API token (Bearer token)
+3. At least one configured messaging channel in your Inboxino account (Telegram, WhatsApp, Instagram, or SMS)
 
-- **[Node.js](https://nodejs.org/)** (v22 or higher) and npm
-  - Linux/Mac/WSL: Install via [nvm](https://github.com/nvm-sh/nvm)
-  - Windows: Follow [Microsoft's NodeJS guide](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows)
-- **[git](https://git-scm.com/downloads)**
+## Credentials
 
-### Recommended
+To use this node, you'll need to configure the **Inboxino API** credential with your API token.
 
-- Follow n8n's [development environment setup guide](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/)
+### Getting Your API Token
 
-> [!NOTE]
-> The `@n8n/node-cli` is included as a dev dependency and will be installed automatically when you run `npm install`. The CLI includes n8n for local development, so you don't need to install n8n globally.
+1. Log in to your [Inboxino dashboard](https://inboxino.com/dashboard)
+2. Navigate to **API Settings** or **Developer Settings**
+3. Generate or copy your API token
+4. Use this token in your n8n Inboxino API credential
 
-## Getting Started with this Starter
+### Setting Up Credentials in n8n
 
-Follow these steps to create your own n8n community node package:
+1. In your n8n workflow, click on **Credentials** → **New**
+2. Search for **Inboxino API**
+3. Enter your API token
+4. Click **Save**
 
-### 1. Create Your Repository
+## Compatibility
 
-[Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template, then clone it:
+- Minimum n8n version: `1.0.0`
+- Tested with n8n version: `1.70.0+`
 
-```bash
-git clone https://github.com/<your-organization>/<your-repo-name>.git
-cd <your-repo-name>
+## Usage
+
+The Inboxino node allows you to send messages through various messaging platforms using a unified interface.
+
+### Node Parameters
+
+- **Resource**: Currently supports `Message`
+- **Operation**: Currently supports `Send`
+- **Account**: Your Inboxino account identifier
+- **Channel**: Select the messaging channel:
+  - Telegram
+  - WhatsApp
+  - Instagram
+  - SMS
+- **Receiver**: The recipient identifier (phone number, username, etc.)
+- **Message Type**: The type of content to send:
+  - Text
+  - Image
+  - Video
+  - Audio
+  - Document
+  - Location
+
+Depending on the message type selected, additional fields will appear for message content, media URLs, captions, or location coordinates.
+
+## Operations
+
+### Message Resource
+
+#### Send Operation
+
+Send a message through Inboxino to any supported channel.
+
+**Required Fields:**
+- Account ID
+- Channel
+- Receiver
+- Message Type
+- Content (varies by message type)
+
+## Examples
+
+### Example 1: Send a Text Message via Telegram
+
+```json
+{
+  "account": "your-account-id",
+  "channel": "telegram",
+  "receiver": "@username",
+  "messageType": "text",
+  "message": "Hello from n8n! Your order #12345 has been shipped."
+}
 ```
 
-### 2. Install Dependencies
+### Example 2: Send an Image via WhatsApp
 
-```bash
-npm install
+```json
+{
+  "account": "your-account-id",
+  "channel": "whatsapp",
+  "receiver": "+1234567890",
+  "messageType": "image",
+  "mediaUrl": "https://example.com/image.jpg",
+  "caption": "Your order confirmation"
+}
 ```
 
-This installs all required dependencies including the `@n8n/node-cli`.
+### Example 3: Send Location via Instagram
 
-### 3. Explore the Examples
-
-Browse the example nodes in [nodes/](nodes/) and [credentials/](credentials/) to understand the structure:
-
-- Start with [nodes/Example/](nodes/Example/) for a basic node
-- Study [nodes/GithubIssues/](nodes/GithubIssues/) for a real-world implementation
-
-### 4. Build Your Node
-
-Edit the example nodes to fit your use case, or create new node files by copying the structure from [nodes/Example/](nodes/Example/).
-
-> [!TIP]
-> If you want to scaffold a completely new node package, use `npm create @n8n/node` to start fresh with the CLI's interactive generator.
-
-### 5. Configure Your Package
-
-Update `package.json` with your details:
-
-- `name` - Your package name (must start with `n8n-nodes-`)
-- `author` - Your name and email
-- `repository` - Your repository URL
-- `description` - What your node does
-
-Make sure your node is registered in the `n8n.nodes` array.
-
-### 6. Develop and Test Locally
-
-Start n8n with your node loaded:
-
-```bash
-npm run dev
+```json
+{
+  "account": "your-account-id",
+  "channel": "instagram",
+  "receiver": "username",
+  "messageType": "location",
+  "latitude": 40.7128,
+  "longitude": -74.0060
+}
 ```
 
-This command runs `n8n-node dev` which:
+### Example 4: Dynamic Message from Webhook
 
-- Builds your node with watch mode
-- Starts n8n with your node available
-- Automatically rebuilds when you make changes
-- Opens n8n in your browser (usually http://localhost:5678)
-
-You can now test your node in n8n workflows!
-
-> [!NOTE]
-> Learn more about CLI commands in the [@n8n/node-cli documentation](https://www.npmjs.com/package/@n8n/node-cli).
-
-### 7. Lint Your Code
-
-Check for errors:
-
-```bash
-npm run lint
+```
+Webhook Trigger
+  ↓
+Set Node (Extract data)
+  ↓
+Inboxino Node
+  - Channel: Telegram
+  - Receiver: {{$json.customer_phone}}
+  - Message: "Hi {{$json.customer_name}}, your order is ready!"
 ```
 
-Auto-fix issues when possible:
+### Example 5: Daily Report via WhatsApp
 
-```bash
-npm run lint:fix
+```
+Schedule Trigger (Daily at 9 AM)
+  ↓
+HTTP Request (Fetch daily stats)
+  ↓
+Code Node (Format report)
+  ↓
+Inboxino Node
+  - Channel: WhatsApp
+  - Receiver: +1234567890
+  - Message: {{$json.report}}
 ```
 
-### 8. Build for Production
+### Example 6: Multi-Channel Notification
 
-When ready to publish:
-
-```bash
-npm run build
+```
+Manual Trigger
+  ↓
+Split Out Node
+  ↓
+Inboxino Node (Telegram)
+  ↓
+Inboxino Node (WhatsApp)
+  ↓
+Inboxino Node (SMS)
 ```
 
-This compiles your TypeScript code to the `dist/` folder.
+## Use Cases
 
-### 9. Prepare for Publishing
+This node is perfect for:
 
-Before publishing:
+- 📧 **Customer Notifications**: Send order updates, shipping confirmations, and delivery notifications
+- 🚨 **Alerts & Monitoring**: Send system alerts, error notifications, and monitoring reports
+- 💬 **Customer Support**: Automate responses and support ticket notifications
+- 📊 **Reports**: Send daily/weekly reports to team members
+- 🎯 **Marketing**: Send promotional messages and campaigns
+- 🔔 **Reminders**: Send appointment reminders and follow-ups
+- 🤖 **Chatbot Integration**: Build automated conversational workflows
 
-1. **Update documentation**: Replace this README with your node's documentation. Use [README_TEMPLATE.md](README_TEMPLATE.md) as a starting point.
-2. **Update the LICENSE**: Add your details to the [LICENSE](LICENSE.md) file.
-3. **Test thoroughly**: Ensure your node works in different scenarios.
+## Features
 
-### 10. Publish to npm
-
-Publish your package to make it available to the n8n community:
-
-```bash
-npm publish
-```
-
-Learn more about [publishing to npm](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
-
-### 11. Submit for Verification (Optional)
-
-Get your node verified for n8n Cloud:
-
-1. Ensure your node meets the [requirements](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/):
-   - Uses MIT license ✅ (included in this starter)
-   - No external package dependencies
-   - Follows n8n's design guidelines
-   - Passes quality and security review
-
-2. Submit through the [n8n Creator Portal](https://creators.n8n.io/nodes)
-
-**Benefits of verification:**
-
-- Available directly in n8n Cloud
-- Discoverable in the n8n nodes panel
-- Verified badge for quality assurance
-- Increased visibility in the n8n community
-
-## Available Scripts
-
-This starter includes several npm scripts to streamline development:
-
-| Script                | Description                                                      |
-| --------------------- | ---------------------------------------------------------------- |
-| `npm run dev`         | Start n8n with your node and watch for changes (runs `n8n-node dev`) |
-| `npm run build`       | Compile TypeScript to JavaScript for production (runs `n8n-node build`) |
-| `npm run build:watch` | Build in watch mode (auto-rebuild on changes)                    |
-| `npm run lint`        | Check your code for errors and style issues (runs `n8n-node lint`) |
-| `npm run lint:fix`    | Automatically fix linting issues when possible (runs `n8n-node lint --fix`) |
-| `npm run release`     | Create a new release (runs `n8n-node release`)                   |
-
-> [!TIP]
-> These scripts use the [@n8n/node-cli](https://www.npmjs.com/package/@n8n/node-cli) under the hood. You can also run CLI commands directly, e.g., `npx n8n-node dev`.
+- ✅ Support for multiple messaging channels (Telegram, WhatsApp, Instagram, SMS)
+- ✅ Multiple message types (text, image, video, audio, document, location)
+- ✅ Batch processing support
+- ✅ Error handling with continue-on-fail option
+- ✅ Dynamic field display based on message type
+- ✅ Full integration with n8n's expression system
 
 ## Troubleshooting
 
-### My node doesn't appear in n8n
+### Common Issues
 
-1. Make sure you ran `npm install` to install dependencies
-2. Check that your node is listed in `package.json` under `n8n.nodes`
-3. Restart the dev server with `npm run dev`
-4. Check the console for any error messages
+**Node not appearing in n8n:**
+- Ensure the package is installed correctly
+- Restart your n8n instance after installation
+- Check n8n logs for any loading errors
 
-### Linting errors
+**Authentication errors:**
+- Verify your API token is correct
+- Ensure the token has proper permissions in Inboxino
+- Check if the token has expired
 
-Run `npm run lint:fix` to automatically fix most common issues. For remaining errors, check the [n8n node development guidelines](https://docs.n8n.io/integrations/creating-nodes/).
+**Message sending fails:**
+- Verify the receiver identifier is in the correct format for the channel
+- Ensure your Inboxino account has the selected channel configured
+- Check the Inboxino API documentation for channel-specific requirements
 
-### TypeScript errors
-
-Make sure you're using Node.js v22 or higher and have run `npm install` to get all type definitions.
+**Media messages not sending:**
+- Ensure the media URL is publicly accessible
+- Verify the media format is supported by the target channel
+- Check file size limits for the specific channel
 
 ## Resources
 
-- **[n8n Node Documentation](https://docs.n8n.io/integrations/creating-nodes/)** - Complete guide to building nodes
-- **[n8n Community Forum](https://community.n8n.io/)** - Get help and share your nodes
-- **[@n8n/node-cli Documentation](https://www.npmjs.com/package/@n8n/node-cli)** - CLI tool reference
-- **[n8n Creator Portal](https://creators.n8n.io/nodes)** - Submit your node for verification
-- **[Submit Community Nodes Guide](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/)** - Verification requirements and process
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Inboxino API Documentation](https://swagger.inboxino.com:3000/)
+- [Inboxino Website](https://inboxino.com)
+
+## Support
+
+If you encounter any issues or have questions:
+
+- 🐛 [Report bugs](https://github.com/erfandiakoo/n8n-nodes-inboxino/issues)
+- 💬 [n8n Community Forum](https://community.n8n.io/)
+- 📧 Contact: diakoo123@gmail.com
 
 ## Contributing
 
-Have suggestions for improving this starter? [Open an issue](https://github.com/n8n-io/n8n-nodes-starter/issues) or submit a pull request!
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Development
+
+To develop and test this node locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/erfandiakoo/n8n-nodes-inboxino.git
+cd n8n-nodes-inboxino
+
+# Install dependencies
+npm install
+
+# Build the node
+npm run build
+
+# Start n8n with the node loaded
+npm run dev
+```
+
+## Version History
+
+### 0.1.0 (Initial Release)
+- ✨ Initial release
+- ✅ Support for Telegram, WhatsApp, Instagram, and SMS channels
+- ✅ Support for text, image, video, audio, document, and location message types
+- ✅ Bearer token authentication
 
 ## License
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+[MIT](LICENSE.md)
+
+## Author
+
+**Erfan Diakoo**
+- Email: diakoo123@gmail.com
+- GitHub: [@erfandiakoo](https://github.com/erfandiakoo)
+
+---
+
+**Note**: This is a community-created node. It is not officially maintained by n8n or Inboxino. For official support, please refer to the respective platforms.
+
+## Keywords
+
+n8n, n8n-community-node-package, n8n-node, inboxino, messaging, telegram, whatsapp, instagram, sms, notifications, automation, workflow
+

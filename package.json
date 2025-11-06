@@ -1,11 +1,20 @@
 {
 	"name": "n8n-nodes-inboxino",
 	"version": "0.1.1",
-	"description": "Inboxino API node for n8n",
+	"description": "n8n node for Inboxino - Send messages via Telegram, WhatsApp, Instagram, and SMS",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://github.com/erfandiakoo/n8n-nodes-inboxino",
 	"keywords": [
-		"n8n-community-node-package"
+		"n8n-community-node-package",
+		"n8n",
+		"inboxino",
+		"messaging",
+		"telegram",
+		"whatsapp",
+		"instagram",
+		"sms",
+		"notifications",
+		"automation"
 	],
 	"author": {
 		"name": "Erfan Diakoo",
