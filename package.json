@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-inboxino",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "n8n node for Inboxino - Send messages via Telegram, WhatsApp, Instagram, and SMS",
 	"license": "MIT",
 	"homepage": "https://github.com/erfandiakoo/n8n-nodes-inboxino",
